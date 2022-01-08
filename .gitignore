@@ -1,0 +1,6 @@
+darknet/
+.venv/
+venv/
+.idea/
+.code/
+
