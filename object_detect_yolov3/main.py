@@ -10,12 +10,13 @@ with open('../darknet/data/coco.names', 'r') as f:
     classes =  f.read().splitlines()
 
 #print(classes)
-img = cv.imread('../darknet/data/dog.jpg')
+#img = cv.imread('../darknet/data/dog.jpg')
+img = cv.imread('WechatIMG76.jpeg')
 
 height, width , a = img.shape
-print(f'{height}, {width}')
+print(f'{height}, {width}, {a}')
 
-blob = cv.dnn.blobFromImage(img, 1/255, (416, 416), (0,0,0), swapRB=True, crop=False)
+blob = cv.dnn.blobFromImage(img, 0.01, (416, 416), (0,0,0), swapRB=True, crop=False)
 
 '''
 for b in blob:
@@ -32,10 +33,13 @@ confidences = []
 class_ids = []
 
 for output in layerOutputs:
-    print(output.shape)
+    print(f'output shape: {output.shape}')
+    print(output[0])
     for detection in output:
+        #print(detection.shape)
         scores = detection[5:]
         #print(scores.shape)
+        #print(scores)
         class_id = np.argmax(scores)
         confidence = scores[class_id]
         if confidence > 0.5:
@@ -59,6 +63,7 @@ print(indexes.flatten())
 
 font = cv.FONT_HERSHEY_PLAIN
 colors = np.random.uniform(0, 255, size=(len(bouding_boxes),3))
+print(colors)
 
 for i in indexes.flatten():
     x, y , w, h = bouding_boxes[i]
