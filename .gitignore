@@ -3,4 +3,5 @@ darknet/
 venv/
 .idea/
 .code/
-
+data/
+TensorFlow/
